@@ -10,6 +10,7 @@ namespace MyApplication
         static void Main(string[] args)
         {
 
+
             #region Q1
             //Console.Write("Enter number: ");
             // bool flag=   int.TryParse(Console.ReadLine(), out int number);
