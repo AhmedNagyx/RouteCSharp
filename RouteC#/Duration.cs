@@ -89,7 +89,7 @@ namespace RouteC_
         public static bool operator <=(Duration a, Duration b)
         {
             return a.TotalSeconds() <= b.TotalSeconds();
-        }
+        } 
         public static implicit operator bool(Duration a)
         {
             return a.Hours != 0 || a.Minutes != 0 || a.Seconds != 0;
