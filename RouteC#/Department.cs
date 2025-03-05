@@ -16,5 +16,6 @@ namespace RouteC_
         public int Ins_ID { get; set; }
         public Instructor Instructor { get; set; }
 
+        public ICollection<Student> Students { get; set; }
     }
 }

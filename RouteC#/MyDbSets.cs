@@ -19,7 +19,36 @@ namespace RouteC_
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer("server=DESKTOP-6IC2DFK;Database=EF3;trusted_connection=true;trustServerCertificate=true;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Stud_Course>()
+                        .HasOne(sc => sc.Student)
+                        .WithMany(s => s.Stud_Courses)
+                        .HasForeignKey(sc => sc.Stud_ID);
+
+            modelBuilder.Entity<Stud_Course>()
+                        .HasOne(sc => sc.Course)
+                        .WithMany(c => c.Stud_Courses)
+                        .HasForeignKey(sc => sc.Course_ID);
+
+            modelBuilder.Entity<Course_Inst>()
+                        .HasOne(ci => ci.Instructor)
+                        .WithMany(i => i.Course_Instructors)
+                        .HasForeignKey(ci => ci.Inst_ID);
+
+            modelBuilder.Entity<Course_Inst>()
+                        .HasOne(ci => ci.Course)
+                        .WithMany(c => c.Course_Instructors)
+                        .HasForeignKey(ci => ci.Course_ID);
+
+            modelBuilder.Entity<Student>()
+                        .HasOne(s => s.Department)
+                        .WithMany(d => d.Students)
+                        .HasForeignKey(s => s.Dep_Id);
+
         }
     }
 }
