@@ -25,30 +25,45 @@ namespace RouteC_
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Stud_Course>()
-                        .HasOne(sc => sc.Student)
-                        .WithMany(s => s.Stud_Courses)
-                        .HasForeignKey(sc => sc.Stud_ID);
+                .HasOne(sc => sc.Student)
+                .WithMany(s => s.Stud_Courses)
+                .HasForeignKey(sc => sc.Stud_ID);
 
             modelBuilder.Entity<Stud_Course>()
-                        .HasOne(sc => sc.Course)
-                        .WithMany(c => c.Stud_Courses)
-                        .HasForeignKey(sc => sc.Course_ID);
+                .HasOne(sc => sc.Course)
+                .WithMany(c => c.Stud_Courses)
+                .HasForeignKey(sc => sc.Course_ID);
 
             modelBuilder.Entity<Course_Inst>()
-                        .HasOne(ci => ci.Instructor)
-                        .WithMany(i => i.Course_Instructors)
-                        .HasForeignKey(ci => ci.Inst_ID);
+                .HasOne(ci => ci.Instructor)
+                .WithMany(i => i.Course_Instructors)
+                .HasForeignKey(ci => ci.Inst_ID);
 
             modelBuilder.Entity<Course_Inst>()
-                        .HasOne(ci => ci.Course)
-                        .WithMany(c => c.Course_Instructors)
-                        .HasForeignKey(ci => ci.Course_ID);
+                .HasOne(ci => ci.Course)
+                .WithMany(c => c.Course_Instructors)
+                .HasForeignKey(ci => ci.Course_ID);
 
             modelBuilder.Entity<Student>()
-                        .HasOne(s => s.Department)
-                        .WithMany(d => d.Students)
-                        .HasForeignKey(s => s.Dep_Id);
+                .HasOne(s => s.Department)
+                .WithMany(d => d.Students)
+                .HasForeignKey(s => s.Dep_Id);
 
+            modelBuilder.Entity<Department>()
+                .HasOne(d => d.Instructor)
+                .WithOne()
+                .HasForeignKey<Department>(d => d.Ins_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Instructor>()
+                .HasOne(i => i.Department)
+                .WithMany()
+                .HasForeignKey(i => i.Dept_ID);
+
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Topic)
+                .WithMany()
+                .HasForeignKey(c => c.Top_ID);
         }
     }
 }
