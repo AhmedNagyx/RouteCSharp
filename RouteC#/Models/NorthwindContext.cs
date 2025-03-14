@@ -8,6 +8,7 @@ namespace RouteC_.Models;
 
 public partial class NorthwindContext : DbContext
 {
+    public NorthwindContext() { }
     public NorthwindContext(DbContextOptions<NorthwindContext> options)
         : base(options)
     {
@@ -66,6 +67,10 @@ public partial class NorthwindContext : DbContext
     public virtual DbSet<Supplier> Suppliers { get; set; }
 
     public virtual DbSet<Territory> Territories { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("server=DESKTOP-6IC2DFK;Database=NORTHWIND;trusted_connection=true;trustServerCertificate=true;");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
